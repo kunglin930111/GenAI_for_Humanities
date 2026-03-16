@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的數位名片</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ===== 基礎設定與變數 ===== */
+        :root {
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --primary-color: #4f46e5; /* 按鈕懸停的主色調 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            /* 讓所有狀態改變都有柔和的過渡動畫 */
+            transition: all 0.3s ease; 
+        }
+
+        /* ===== 響應式排版 (背景) ===== */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px; /* 確保在手機螢幕上邊緣有呼吸空間 */
+            cursor: pointer; /* 提示背景可點擊 */
+        }
+
+        /* ===== 名片卡片主體 ===== */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 400px; /* 最大寬度，手機版會自動適應 100% */
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            cursor: default; /* 卡片本身恢復預設鼠標 */
+        }
+
+        /* ===== 個人品牌化：大頭照與文字 ===== */
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--card-bg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        /* 互動小 Vibe 1：純 CSS 實現 - 滑鼠移到照片上會微放大並旋轉 */
+        .profile-pic:hover {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .bio {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* ===== 社群連結區塊 ===== */
+        .links {
+            display: flex;
+            flex-direction: column; /* 讓按鈕垂直排列 */
+            gap: 12px; /* 按鈕之間的間距 */
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        /* 按鈕懸停效果 */
+        .link-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px); /* 輕微往上浮起 */
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <img src="https://github.com/user-attachments/assets/b88ac799-db79-4af0-a640-e5291e42e3de" alt="我的大頭照" class="profile-pic">
+        <h1 class="name">Kevin Chu</h1>
+        <p class="bio">哈囉！我是一個熱愛探索技術與設計的開發者。喜歡極簡風格、寫程式，偶爾喝杯咖啡放空。</p>
+        
+        <div class="links">
+            <a href="https://instagram.com/jlkl.11" target="_blank" class="link-btn">
+                <i class="fa-brands fa-instagram"></i> Instagram
+            </a>
+            <a href="https://github.com/kunglin930111" target="_blank" class="link-btn">
+                <i class="fa-brands fa-github"></i> GitHub
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=jlkl.helps@gmail.com" target="_blank" class="link-btn">
+                <i class="fa-solid fa-envelope"></i> 寫信給我
+            </a>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        /* ===== 互動小 Vibe 2：JS 實現 - 點擊背景切換顏色 ===== */
+        const body = document.body;
+        // 準備幾種質感的背景顏色
+        const colors = ['#f3f4f6', '#ffe4e6', '#e0e7ff', '#dcfce7', '#fef3c7', '#f3e8ff'];
+        let colorIndex = 0;
+
+        body.addEventListener('click', function(event) {
+            // 確保只有點擊「背景 (body)」時才變色，點擊「卡片」時不會觸發
+            if(event.target === body) {
+                colorIndex = (colorIndex + 1) % colors.length; // 循環選取顏色
+                body.style.backgroundColor = colors[colorIndex];
+                
+                // 順便加個小巧思：讓變色時有點彈性的感覺
+                body.style.transform = "scale(0.99)";
+                setTimeout(() => {
+                    body.style.transform = "scale(1)";
+                }, 150);
+            }
+        });
+    </script>
+
+</body>
+</html>
